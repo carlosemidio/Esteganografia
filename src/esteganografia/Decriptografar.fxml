@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="esteganografia.DecriptografarController">
+   <children>
+      <JFXTextArea fx:id="mensagem" layoutX="40.0" layoutY="22.0" prefHeight="235.0" prefWidth="533.0" promptText="Mensagem" />
+      <Button layoutX="40.0" layoutY="343.0" mnemonicParsing="false" onAction="#chooseImage" text="Selecionar imagem" />
+      <Label fx:id="label" layoutX="40.0" layoutY="303.0" text="Imagem selecionada" />
+      <Button layoutX="364.0" layoutY="343.0" mnemonicParsing="false" onAction="#decriptografar" text="Decriptografar mesagem" />
+   </children>
+</AnchorPane>
