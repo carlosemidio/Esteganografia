@@ -9,7 +9,8 @@
    <children>
       <Label fx:id="label" layoutX="34.0" layoutY="250.0" text="Imagem selecionada" />
       <Button layoutX="34.0" layoutY="309.0" mnemonicParsing="false" onAction="#chooseImage" text="Escolher Imagem" />
-      <Button layoutX="375.0" layoutY="309.0" mnemonicParsing="false" onAction="#criptografar" text="Criptografar" />
+      <Button layoutX="197.0" layoutY="309.0" mnemonicParsing="false" onAction="#criptografar" text="Criptografar" />
       <JFXTextArea fx:id="mensagem" layoutX="34.0" layoutY="14.0" prefHeight="221.0" prefWidth="533.0" promptText="Mensagem" />
+      <Button fx:id="saveIMG" disable="true" layoutX="329.0" layoutY="309.0" mnemonicParsing="false" onAction="#saveImage" text="Salvar Imagem com a mensagem" />
    </children>
 </AnchorPane>

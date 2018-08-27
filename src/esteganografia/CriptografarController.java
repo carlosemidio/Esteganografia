@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
@@ -30,9 +31,12 @@ public class CriptografarController implements Initializable {
     @FXML
     private Label label;
     @FXML
+    private Button saveIMG;
+    @FXML
     private TextArea mensagem;
     
     private File file;
+    private BufferedImage image;
     
     
     /**
@@ -54,12 +58,23 @@ public class CriptografarController implements Initializable {
     }
     
     @FXML
+    private void saveImage(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        
+        this.file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            ImageIO.write(this.image, "BMP", new File(file.getAbsoluteFile()+".bmp"));
+            JOptionPane.showMessageDialog(null, "Imagem salva com sucesso!");
+        }
+    }
+    
+    @FXML
     private void criptografar(ActionEvent event) throws IOException {
        
         if(mensagem.getText().length() > 0) {
             if (this.file != null) {
                 try {
-                    BufferedImage image = ImageIO.read( this.file );
+                    this.image = ImageIO.read( this.file );
                     WritableRaster raster = image.getRaster();
                     int[] pixel = new int[4];
                     String msg = mensagem.getText().toString();
@@ -131,7 +146,7 @@ public class CriptografarController implements Initializable {
                         }
                     }
 
-                    ImageIO.write(image, "BMP", new File("imd2.bmp"));
+                    saveIMG.setDisable(false);
                     
                     JOptionPane.showMessageDialog(null, "Mensagem criptografada com sucesso!");
                 } catch ( IOException exc ) {

@@ -41,6 +41,8 @@ public class DecriptografarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        mensagem.setEditable(false);
     }
 
     @FXML
