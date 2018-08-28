@@ -65,10 +65,7 @@ public class DecriptografarController implements Initializable {
 
                 int[] pixel = new int[4];
 
-                int msgIndex = 0;
                 int bitIndex = 0;
-                int lenthIndex = 0;
-                String lenth = "";
                 String character = "";
                 String msg = "";
                
@@ -77,49 +74,35 @@ public class DecriptografarController implements Initializable {
                 for ( int i = 0; i < raster.getWidth(); i++ ) {
                     for (int j = 0; j < raster.getHeight(); j++) {
 
-                        if (lenthIndex < 32) {
-                            pixel = raster.getPixel(i, j, pixel);
-
-                            lenth += intToBinary8Bits(pixel[0]).charAt(7);
-                            lenthIndex++;
+                        pixel = raster.getPixel(i, j, pixel);
                             
-                            if(lenthIndex < 32){
-                                lenth += intToBinary8Bits(pixel[1]).charAt(7);
-                                lenthIndex++;
-                            }
-                            if(lenthIndex < 32){
-                                lenth += intToBinary8Bits(pixel[2]).charAt(7);
-                                lenthIndex++;
-                            }
-                        } else {
-                            pixel = raster.getPixel(i, j, pixel);
+                        if(bitIndex > 7) {
+                            bitIndex = 0;
                             
-                            if(bitIndex > 7) {
-                                bitIndex = 0;
-                                msgIndex++;
-                                msg += (char)Integer.parseInt(character, 2);
-                                character = "";
-                                if (msgIndex >= Integer.parseInt(lenth, 2)) {
-                                    break;
-                                }
+                            if (Integer.parseInt(character, 2) == 0) {
+                                break;
                             }
+                            
+                            msg += (char)Integer.parseInt(character, 2);
+                            character = "";
+                            
+                        }
 
-                            if (bitIndex < 8) {
-                                character += intToBinary8Bits(pixel[0]).charAt(7);
-                                bitIndex++;
-                            }
-                            if (bitIndex < 8) {
-                                character += intToBinary8Bits(pixel[1]).charAt(7);
-                                bitIndex++;
-                            }
-                            if (bitIndex < 8) {
-                                character += intToBinary8Bits(pixel[2]).charAt(7);
-                                bitIndex++;
-                            }
+                        if (bitIndex < 8) {
+                            character += intToBinary8Bits(pixel[0]).charAt(7);
+                            bitIndex++;
+                        }
+                        if (bitIndex < 8) {
+                            character += intToBinary8Bits(pixel[1]).charAt(7);
+                            bitIndex++;
+                        }
+                        if (bitIndex < 8) {
+                            character += intToBinary8Bits(pixel[2]).charAt(7);
+                            bitIndex++;
                         }
                     }
 
-                    if (msgIndex >= Integer.parseInt(lenth, 2)) {
+                    if (Integer.parseInt(character, 2) == 0) {
                         mensagem.setText(msg);
                         break;
                     }
@@ -130,23 +113,6 @@ public class DecriptografarController implements Initializable {
                     exc.printStackTrace();
             }
         }
-    }
-    
-    public String intToBinary32Bits(int value){
-        String int32Bits = "";
-        String aux = Integer.toBinaryString(value);
-        int index = 0;
-        
-        for (int i = 0; i < 32; i++) {
-            if(i < (32 - aux.length())) { 
-                int32Bits += "0";
-            } else {
-                int32Bits += aux.charAt(index);
-                index++;
-            }
-        }
-        
-        return int32Bits;
     }
     
     public String intToBinary8Bits(int value){

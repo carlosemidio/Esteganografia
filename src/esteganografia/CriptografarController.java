@@ -80,59 +80,44 @@ public class CriptografarController implements Initializable {
                     String msg = mensagem.getText().toString();
                     int msgIndex = 0;
                     int bitIndex = 0;
-                    int lenthIndex = 0;
                     
                     String bits = intToBinary8Bits((int)msg.charAt(0));
-                    String lenthOfMesage = intToBinary32Bits(msg.length());
                     
                     for ( int i = 0; i < raster.getWidth(); i++ ) {
                         for (int j = 0; j < raster.getHeight(); j++) {
-                            if (lenthIndex < 32) {
-                                pixel = raster.getPixel(i, j, pixel);
-                                pixel[0] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[0]), lenthOfMesage.charAt(lenthIndex)), 2);
-                                lenthIndex++;
-                                
-                                if(lenthIndex < 32){
-                                    pixel[1] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[1]), lenthOfMesage.charAt(lenthIndex)), 2);
-                                    lenthIndex++;
-                                }
-                                
-                                if(lenthIndex < 32){
-                                    pixel[2] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[2]), lenthOfMesage.charAt(lenthIndex)), 2);
-                                    lenthIndex++;
-                                }
+                            pixel = raster.getPixel(i, j, pixel);
 
-                                raster.setPixel(i, j, pixel);
-                            } else {
-                                pixel = raster.getPixel(i, j, pixel);
-                            
-                                if(bitIndex > 7) {
-                                    bitIndex = 0;
-                                    msgIndex++;
-                                    if (msgIndex >= msg.length()) {
-                                        break;
-                                    }
+                            if(bitIndex > 7) {
+                                bitIndex = 0;
+                                msgIndex++;
+                                if (msgIndex > msg.length()) {
+                                    break;
+                                }
+                                
+                                if (msgIndex == msg.length()) {
+                                    bits = intToBinary8Bits(0);
+                                } else {
                                     bits = intToBinary8Bits((int)msg.charAt(msgIndex));
                                 }
-
-                                if (bitIndex < 8) {
-                                    pixel[0] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[0]), bits.charAt(bitIndex)), 2);
-                                    bitIndex++;
-                                }
-                                if (bitIndex < 8) {
-                                    pixel[1] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[1]), bits.charAt(bitIndex)), 2);
-                                    bitIndex++;
-                                }
-                                if (bitIndex < 8) {
-                                    pixel[2] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[2]), bits.charAt(bitIndex)), 2);
-                                    bitIndex++;
-                                }
-
-                                raster.setPixel(i, j, pixel);
                             }
+
+                            if (bitIndex < 8) {
+                                pixel[0] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[0]), bits.charAt(bitIndex)), 2);
+                                bitIndex++;
+                            }
+                            if (bitIndex < 8) {
+                                pixel[1] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[1]), bits.charAt(bitIndex)), 2);
+                                bitIndex++;
+                            }
+                            if (bitIndex < 8) {
+                                pixel[2] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[2]), bits.charAt(bitIndex)), 2);
+                                bitIndex++;
+                            }
+
+                            raster.setPixel(i, j, pixel);
                         }
                         
-                        if (msgIndex >= msg.length()) {
+                        if (msgIndex > msg.length()) {
                             break;
                         }
                     }
@@ -153,23 +138,6 @@ public class CriptografarController implements Initializable {
         StringBuilder res = new StringBuilder(str);
         res.setCharAt((str.length()-1), bit);
         return res.toString();
-    }
-    
-    public String intToBinary32Bits(int value){
-        String int32Bits = "";
-        String aux = Integer.toBinaryString(value);
-        int index = 0;
-        
-        for (int i = 0; i < 32; i++) {
-            if(i < (32 - aux.length())) { 
-                int32Bits += "0";
-            } else {
-                int32Bits += aux.charAt(index);
-                index++;
-            }
-        }
-        
-        return int32Bits;
     }
     
     public String intToBinary8Bits(int value){
