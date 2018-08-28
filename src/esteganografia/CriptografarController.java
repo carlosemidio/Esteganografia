@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author oem
+ * @author José Carlos Emídio Pereira
  */
 public class CriptografarController implements Initializable {
 
@@ -81,30 +81,24 @@ public class CriptografarController implements Initializable {
                     int msgIndex = 0;
                     int bitIndex = 0;
                     int lenthIndex = 0;
+                    
                     String bits = intToBinary8Bits((int)msg.charAt(0));
                     String lenthOfMesage = intToBinary32Bits(msg.length());
-                    
-                    String s1 = "";
-                    String s2 = "";
-                    String s3 = "";
                     
                     for ( int i = 0; i < raster.getWidth(); i++ ) {
                         for (int j = 0; j < raster.getHeight(); j++) {
                             if (lenthIndex < 32) {
                                 pixel = raster.getPixel(i, j, pixel);
-                                s1 = insertChar(intToBinary8Bits(pixel[0]), lenthOfMesage.charAt(lenthIndex));
+                                pixel[0] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[0]), lenthOfMesage.charAt(lenthIndex)), 2);
                                 lenthIndex++;
-                                pixel[0] = Integer.parseInt(s1, 2);
                                 
                                 if(lenthIndex < 32){
-                                    s2 = insertChar(intToBinary8Bits(pixel[1]), lenthOfMesage.charAt(lenthIndex));
+                                    pixel[1] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[1]), lenthOfMesage.charAt(lenthIndex)), 2);
                                     lenthIndex++;
-                                    pixel[1] = Integer.parseInt(s2, 2);
                                 }
                                 
                                 if(lenthIndex < 32){
-                                    s3 = insertChar(intToBinary8Bits(pixel[2]), lenthOfMesage.charAt(lenthIndex));
-                                    pixel[2] = Integer.parseInt(s3, 2);
+                                    pixel[2] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[2]), lenthOfMesage.charAt(lenthIndex)), 2);
                                     lenthIndex++;
                                 }
 
@@ -122,18 +116,15 @@ public class CriptografarController implements Initializable {
                                 }
 
                                 if (bitIndex < 8) {
-                                    s1 = insertChar(intToBinary8Bits(pixel[0]), bits.charAt(bitIndex));
-                                    pixel[0] = Integer.parseInt(s1, 2);
+                                    pixel[0] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[0]), bits.charAt(bitIndex)), 2);
                                     bitIndex++;
                                 }
                                 if (bitIndex < 8) {
-                                    s2 = insertChar(intToBinary8Bits(pixel[1]), bits.charAt(bitIndex));
-                                    pixel[1] = Integer.parseInt(s2, 2);
+                                    pixel[1] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[1]), bits.charAt(bitIndex)), 2);
                                     bitIndex++;
                                 }
                                 if (bitIndex < 8) {
-                                    s3 = insertChar(intToBinary8Bits(pixel[2]), bits.charAt(bitIndex));
-                                    pixel[2] = Integer.parseInt(s3, 2);
+                                    pixel[2] = Integer.parseInt(insertChar(intToBinary8Bits(pixel[2]), bits.charAt(bitIndex)), 2);
                                     bitIndex++;
                                 }
 

@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author oem
+ * @author José Carlos Emídio Pereira
  */
 public class DecriptografarController implements Initializable {
     
@@ -124,8 +124,6 @@ public class DecriptografarController implements Initializable {
                         break;
                     }
                 }
-
-                ImageIO.write(image, "BMP", new File("imd2.bmp"));
 
                 JOptionPane.showMessageDialog(null, "Mensagem decriptografada com sucesso!");
             } catch ( IOException exc ) {

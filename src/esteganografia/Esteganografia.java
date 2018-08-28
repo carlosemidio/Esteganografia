@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author oem
+ * @author José Carlos Emídio Pereira
  */
 public class Esteganografia extends Application {
     

@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author oem
+ * @author José Carlos Emídio Pereira
  */
 public class MainController implements Initializable {
 
